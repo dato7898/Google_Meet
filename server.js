@@ -1,7 +1,7 @@
 const express = require("express");
 const path = require("path");
-var app = express();
-var server = app.listen(3000, function () {
+let app = express();
+let server = app.listen(3000, function () {
     console.info("Listening on port 3000");
 });
 
@@ -9,12 +9,12 @@ const io = require("socket.io")(server, {
     allowEIO3: true // false by default
 });
 app.use(express.static(path.join(__dirname, "")));
-var userConnections = [];
+let userConnections = [];
 io.on("connection", (socket) => {
     console.log("socket id is ", socket.id);
     socket.on("userconnect", data => {
         console.log("userconnect", data.displayName, data.meetingid);
-        var other_users = userConnections.filter(p => p.meeting_id == data.meetingid);
+        let other_users = userConnections.filter(p => p.meeting_id == data.meetingid);
         userConnections.push({
             connectionId: socket.id,
             user_id: data.displayName,
@@ -27,5 +27,14 @@ io.on("connection", (socket) => {
                 connId: socket.id
             });
         });
-    })
+
+        socket.emit("inform_me_about_other_user", other_users);
+    });
+
+    socket.on("SDPProcess", data => {
+        socket.to(data.to_connid).emit("SDPProcess", {
+            message: data.message,
+            from_connid: socket.id
+        });
+    });
 });
