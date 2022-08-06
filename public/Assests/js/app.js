@@ -196,7 +196,7 @@ const AppProcess = (function () {
 
             if (event.track.kind == "video") {
                 remote_vid_stream[connid]
-                    .getVideoTrack()
+                    .getVideoTracks()
                     .forEach(t => remote_vid_stream[connid].removeTrack(t));
                 remote_vid_stream[connid].addTrack(event.track);
                 let remoteVideoPlayer = document.getElementById("v_" + connid);
@@ -205,7 +205,7 @@ const AppProcess = (function () {
                 remoteVideoPlayer.load();
             } else if (event.track.kind == "audio") {
                 remote_aud_stream[connid]
-                    .getAudioTrack()
+                    .getAudioTracks()
                     .forEach(t => remote_aud_stream[connid].removeTrack(t));
                 remote_aud_stream[connid].addTrack(event.track);
                 let remoteAudioPlayer = document.getElementById("a_" + connid);
