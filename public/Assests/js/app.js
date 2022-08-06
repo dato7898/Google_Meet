@@ -34,7 +34,7 @@ const AppProcess = (function () {
                 return;
             }
             if (isAudioMute) {
-                audio.enable = true;
+                audio.enabled = true;
                 $(this).html("<span class='material-icons' style='width: 100%;'>mic</span>");
                 updateMediaSenders(audio, rtp_audio_senders);
             } else {
@@ -312,7 +312,7 @@ const AppProcess = (function () {
             await SDPProcess(data, from_connid);
         },
         closeConnectionCall: async function (connId) {
-            await this.closeConnection(connId);
+            await closeConnection(connId);
         }
     }
 })();
