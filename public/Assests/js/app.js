@@ -329,6 +329,7 @@ const MyApp = (function () {
         $("#me h2").text(user_id + "(Me)");
         document.title = user_id;
         event_process_for_signaling_server();
+        eventHandeling();
     }
 
     function event_process_for_signaling_server() {
@@ -373,6 +374,33 @@ const MyApp = (function () {
 
         socket.on("SDPProcess", async function (data) {
             await AppProcess.processClientFunc(data.message, data.from_connid);
+        });
+
+        socket.on("showChatMessage", function (data) {
+            let time = new Date();
+            let lTime = time.toLocaleString("en-US", {
+                hour: "numeric",
+                minute: "numeric",
+                hour12: true
+            });
+            let div = $("<div>").html("<span class='font-weight-bold mr-3' style='color: black;'>" + data.from + "</span>" + lTime + "<br />" + data.message);
+            $("#messages").append(div);
+        });
+    }
+
+    function eventHandeling() {
+        $("#btnsend").on("click", function () {
+            let msgData = $("#msgbox").val();
+            socket.emit("sendMessage", msgData);
+            let time = new Date();
+            let lTime = time.toLocaleString("en-US", {
+                hour: "numeric",
+                minute: "numeric",
+                hour12: true
+            });
+            let div = $("<div>").html("<span class='font-weight-bold mr-3' style='color: black;'>" + user_id + "</span>" + lTime + "<br />" + msgData);
+            $("#messages").append(div);
+            $("#msgbox").val("");
         });
     }
 
