@@ -145,3 +145,38 @@ video {
     background-color: #00808047;
     border-radius: 5px;
 }
+
+.top-box {
+    background-color: rgb(14 6 6);
+    position: fixed;
+    width: 30%;
+    height: 30%;
+    top: 20.5%;
+    left: 35.5%;
+    display: block;
+    box-shadow: 0 0 5px white;
+    border-radius: 10px;
+    z-index: 999;
+    color: white;
+    border: 2px solid white;
+}
+
+.bottom-left {
+    position: relative;
+    padding: 5px;
+}
+
+.g-details {
+    position: absolute;
+    width: 30vw;
+    background-color: white;
+    margin-top: -135px;
+    color: black;
+    border-radius: 5px;
+    padding: 5px;
+}
+
+.g-details-heading-show {
+    font-size: 14px;
+    padding-left: 10px;
+}

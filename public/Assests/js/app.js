@@ -406,6 +406,13 @@ const MyApp = (function () {
             $("#messages").append(div);
             $("#msgbox").val("");
         });
+
+        let url = window.location.href;
+        $(".meeting_url").text(url);
+
+        $("#divUsers").on("dblclick", "video", function () {
+            this.requestFullscreen();
+        });
     }
 
     function addUser(other_user_id, connId, userNum) {
@@ -452,6 +459,68 @@ const MyApp = (function () {
         $(".chat-show-wrap").show(300);
         $(".chat-heading").addClass("active");
         $(".people-heading").removeClass("active");
+    });
+
+    $(document).on("click", ".end-call-wrap", function () {
+        $(".top-box-show").css({
+            "display": "block"
+        })
+        .html('<div class="top-box align-vertical-middle profile-dialogue-show"> <h4 class="mt-2" style="text-align: center; color: white;">Leave Meeting</h4> <hr /> <div class="call-leave-cancel-action d-flex justify-content-center align-items-center w-100"> <a href="/action.html"><button class="call-leave-action btn btn-danger mr-5">Leave</button></a> <button class="call-cancel-action btn btn-secondary">Cancel</button> </div> </div>')
+    });
+
+    $(document).mouseup(function (e) {
+        let container = new Array();
+        container.push($(".top-box-show"));
+        $.each(container, function (key, value) {
+            if (!$(value).is(e.target) && $(value).has(e.target).length == 0) {
+                $(value).empty();
+            }
+        });
+    });
+
+    $(document).mouseup(function (e) {
+        let container = new Array();
+        container.push($(".g-details"));
+        container.push($(".g-right-details-wrap"));
+        $.each(container, function (key, value) {
+            if (!$(value).is(e.target) && $(value).has(e.target).length == 0) {
+                $(value).hide(300);
+            }
+        });
+    });
+
+    $(document).on("click", ".call-cancel-action", function () {
+        $(".top-box-show").html('');
+    });
+
+    $(document).on("click", ".copy_info", function () {
+        let $temp = $("<input>");
+        $("body").append($temp);
+        $temp.val($(".meeting_url").text()).select();
+        document.execCommand("copy");
+        $temp.remove();
+        $(".link-conf").show();
+        setTimeout(function () {
+            $(".link-conf").hide();
+        }, 3000);
+    });
+
+    $(document).on("click", ".meeting-details-button", function () {
+        $(".g-details").slideDown(300);
+    });
+
+    $(document).on("click", ".g-details-heading-attachment", function () {
+        $(".g-details-heading-show").hide();
+        $(".g-details-heading-show-attachment").show();
+        $(this).addClass("active");
+        $(".g-details-heading-detail").removeClass("active");
+    });
+
+    $(document).on("click", ".g-details-heading-detail", function () {
+        $(".g-details-heading-show").show();
+        $(".g-details-heading-show-attachment").hide();
+        $(this).addClass("active");
+        $(".g-details-heading-attachment").removeClass("active");
     });
 
     return {
