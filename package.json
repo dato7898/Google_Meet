@@ -4,7 +4,7 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "start": "node server"
+    "start": "nodemon server"
   },
   "author": "",
   "license": "ISC",
@@ -12,5 +12,8 @@
     "express": "^4.17.1",
     "express-fileupload": "^1.2.1",
     "socket.io": "^4.1.2"
+  },
+  "devDependencies": {
+    "nodemon": "^2.0.7"
   }
 }
