@@ -235,6 +235,9 @@ const AppProcess = (function () {
                 updateMediaSenders(videoCamTrack, rtp_vid_senders);
             }
         }
+        if (audio && !isAudioMute) {
+            updateMediaSenders(audio, rtp_audio_senders);
+        }
 
         return connection;
     }

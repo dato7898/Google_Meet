@@ -14,6 +14,9 @@ let userConnections = [];
 io.on("connection", (socket) => {
     console.log("socket id is ", socket.id);
     socket.on("userconnect", data => {
+        if (userConnections.find(p => p.user_id == data.displayName)) {
+            return;
+        }
         console.log("userconnect", data.displayName, data.meetingid);
         let other_users = userConnections.filter(p => p.meeting_id == data.meetingid);
         userConnections.push({
